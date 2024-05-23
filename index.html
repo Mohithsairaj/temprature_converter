@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temperature Converter</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Temperature Converter</h2>
+    <label for="temperature">Enter Temperature:</label>
+    <input type="text" id="temperature">
+    <select id="unit">
+      <option value="fahrenheit">Fahrenheit</option>
+      <option value="celsius">Celsius</option>
+      <option value="kelvin">Kelvin</option>
+    </select>
+    <button onclick="convertTemperature()">Convert</button>
+    <div id="output"></div>
+  </div>
+
+  <script>
+    function convertTemperature() {
+      let inputTemperature = document.getElementById('temperature').value;
+      let unit = document.getElementById('unit').value;
+      let convertedTemperature;
+
+      if (isNaN(inputTemperature)) {
+        alert('Please enter a valid number for temperature.');
+        return;
+      }
+
+      inputTemperature = parseFloat(inputTemperature);
+
+      if (unit === 'fahrenheit') {
+        convertedTemperature = {
+          celsius: (inputTemperature - 32) * 5/9,
+          kelvin: (inputTemperature - 32) * 5/9 + 273.15
+        };
+      } else if (unit === 'celsius') {
+        convertedTemperature = {
+          fahrenheit: (inputTemperature * 9/5) + 32,
+          kelvin: inputTemperature + 273.15
+        };
+      } else if (unit === 'kelvin') {
+        convertedTemperature = {
+          fahrenheit: (inputTemperature - 273.15) * 9/5 + 32,
+          celsius: inputTemperature - 273.15
+        };
+      }
+
+      // Display the converted temperature
+      let outputDiv = document.getElementById('output');
+      outputDiv.innerHTML = `Converted Temperature:<br>
+        Fahrenheit: ${convertedTemperature.fahrenheit ? convertedTemperature.fahrenheit.toFixed(2) + '°F' : 'N/A'}<br>
+        Celsius: ${convertedTemperature.celsius ? convertedTemperature.celsius.toFixed(2) + '°C' : 'N/A'}<br>
+        Kelvin: ${convertedTemperature.kelvin ? convertedTemperature.kelvin.toFixed(2) + 'K' : 'N/A'}`;
+    }
+  </script>
+</body>
+</html>
